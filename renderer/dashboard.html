@@ -27,13 +27,15 @@
     <!-- begin navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">
+          <img src="./images/logo.png" alt="" class="logo">
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarColor02"
-          aria-controls="navbarColor02"
+          data-bs-target="#my-navbar"
+          aria-controls="my-navbar"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
@@ -41,7 +43,7 @@
         </button>
         <div
           class="collapse d-lg-flex justify-content-end navbar-collapse"
-          id="navbarColor02"
+          id="my-navbar"
         >
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -73,8 +75,22 @@
       <a href="./index.html" class="btn btn-sm btn-dark">
         <i class="fas fa-arrow-left"></i> go back
       </a>
-      <div>
-        <canvas id="myChart"></canvas>
+
+      <div class="row mt-1">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <canvas id="chart1"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <canvas id="chart2"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

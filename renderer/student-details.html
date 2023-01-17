@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- styles -->
+    <link rel="stylesheet" href="./css//bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"
+      integrity="sha512-L4lHq2JI/GoKsERT8KYa72iCwfSrKYWEyaBxzJeeITM9Lub5vlTj8tufqYk056exhjo2QDEipJrg6zen/DDtoQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="./js/index.js"></script>
+    <title>absence management</title>
+  </head>
+  <body>
+       <!-- begin navbar -->
+       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="./images/logo.png" alt="" class="logo">
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#my-navbar"
+            aria-controls="my-navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse d-lg-flex justify-content-end navbar-collapse"
+            id="my-navbar"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="./index.html">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >hello username</a
+                >
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="text-danger dropdown-item">logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- end navbar -->
+
+    <div class="container mt-5">
+      <a href="./student-list.html" class="btn btn-sm btn-dark">
+        <i class="fas fa-arrow-left"></i> go back
+      </a>
+
+      <div class="row -3">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-3">
+          <div class="card">
+            <div class="card-header d-flex justify-content-center">
+              <h6>student info</h6>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-center">
+                <img src="" alt="student image" class="avatar avatar-lg" id="student-image" />
+              </div>
+
+              <table class="table table-sm" id="student-info-table">
+                <tbody>
+                  <tr>
+                    <td><small class="d-block text-center">name</small></td>
+                    <td><small class="d-block text-center">jhon doe</small></td>
+                  </tr>
+                  <tr>
+                    <td><small class="d-block text-center">phone</small></td>
+                    <td>
+                      <small class="d-block text-center"
+                        >+212 06 01 01 01 01</small
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><small class="d-block text-center">filiere</small></td>
+                    <td><small class="d-block text-center">Big Data</small></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
+          <div class="d-flex justify-content-center">
+            <h5>Send to him an sms</h5>
+          </div>
+          <form action="">
+            <div class="form-group">
+              <label for="txt-phone">Phone</label>
+              <input
+                type="text"
+                class="form-control text-center"
+                placeholder="enter phone number ..."
+                value="+212 06 01 01 01 01"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <label for="txt-phone">Message</label>
+              <textarea
+                class="form-control"
+                placeholder="enter message ...."
+              ></textarea>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-dark btn-sm mt-2">
+                <i class="fa-solid fa-paper-plane"></i> send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- javascript -->
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/student-details.js"></script>
+  </body>
+</html>
