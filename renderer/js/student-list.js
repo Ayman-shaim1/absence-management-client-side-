@@ -12,7 +12,6 @@ const getStudent = async () => {
   showStudent(data.students);
   showPagination(data.totalPages);
 };
-getStudent();
 
 const showStudent = data => {
   let html = "";
@@ -46,16 +45,31 @@ const showPagination = totalPages => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   let currentPage = params.page || 1;
-  let previousPage = currentPage !== 1 ? currentPage - 1 : 1;
-  let nextPage = currentPage !== totalPages ? currentPage + 1 : totalPages;
+  let previousPage = currentPage - 1;
+  let nextPage = currentPage + 1;
+
   console.log(currentPage);
   console.log(params);
-  let html = `<li class="page-item"><a class="page-link" href="./student-list.html?page=${previousPage}">Previous</a></li>`;
+  let html =
+    currentPage > 1
+      ? `<li class="page-item"><a class="page-link" href="./student-list.html?page=${previousPage}">Previous</a></li>`
+      : "";
   for (let i = 1; i <= totalPages; i++) {
     html += `<li class="page-item ${currentPage == i ? "active" : ""}">
     <a class="page-link" href="./student-list.html?page=${i}">${i}</a>
     </li>`;
   }
-  html += `<li class="page-item"><a class="page-link" href="./student-list.html?page=${nextPage}">Previous</a></li>`;
+  html +=
+    currentPage < totalPages
+      ? `<li class="page-item"><a class="page-link" href="./student-list.html?page=${nextPage}">Next</a></li>`
+      : "";
   paginationList.innerHTML = html;
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!Auth.islogin) {
+    window.location.href = "./login.html";
+  } else {
+    getStudent();
+  }
+});

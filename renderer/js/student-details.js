@@ -30,4 +30,10 @@ const showUserInfo = studentinfo => {
   studentInfoTable.querySelector("tbody").innerHTML = html;
 };
 
-getUserInfo();
+document.addEventListener("DOMContentLoaded", () => {
+  if (!Auth.islogin) {
+    window.location.href = "./login.html";
+  } else {
+    getUserInfo();
+  }
+});

@@ -19,16 +19,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/auth.js"></script>
     <title>absence management</title>
   </head>
   <body>
     <!-- begin navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="./images/logo.png" alt="" class="logo" />
-        </a>
+        <a class="navbar-brand" href="#"> </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -56,12 +54,13 @@
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="false"
+                id="navbar-username-link"
                 >hello username</a
               >
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Profile</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="text-danger dropdown-item">logout</a>
+                <a href="#" class="text-danger dropdown-item" id="logout-link"
+                  >logout</a
+                >
               </div>
             </li>
           </ul>
@@ -74,7 +73,7 @@
         <i class="fas fa-arrow-left"></i> go back
       </a>
 
-      <table class="table table-sm table-striped" id="student-table">
+      <table class="table table-sm " id="student-table">
         <thead>
           <tr>
             <th><small class="d-block text-center"> Image </small></th>
@@ -263,6 +262,7 @@
     </div>
 
     <!-- javascript -->
+    <script src="./js/index.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/student-list.js"></script>

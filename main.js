@@ -2,6 +2,7 @@ const path = require("path");
 const { app, BrowserWindow } = require("electron");
 
 const isDev = process.env.NODE_ENV !== "production";
+
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
     title: "Gestion d'absence",
