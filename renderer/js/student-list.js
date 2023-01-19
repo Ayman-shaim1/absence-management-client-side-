@@ -1,27 +1,40 @@
 const studentTable = document.getElementById("student-table");
 const paginationList = document.getElementById("pagination");
+const frmReherche = document.getElementById("frm-recherche");
+const drpFiliere = document.getElementById("drp-filiere");
+const txtName = document.getElementById("txt-name");
 
-const getStudent = async () => {
+let filiere = "";
+let name = "";
+
+const getStudent = async (filiere, name) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   let currentPage = params.page || 1;
   const { data } = await axios.get(
-    `${env.apirurl}/api/students?page=${currentPage}`
+    `${env.apirurl}/api/students?page=${currentPage}&filiere=${filiere}&name=${name}`
   );
   console.log(data);
   showStudent(data.students);
   showPagination(data.totalPages);
 };
 
+const getFilieres = async () => {
+  const { data } = await axios.get(`${env.apirurl}/api/filieres`);
+  console.log(data);
+  showFiliers(data);
+};
+
 const showStudent = data => {
   let html = "";
-  data.forEach(student => {
-    const filiere = student.filiere.libelle;
-    let nbrheures = 0;
-    student.absences.forEach(abs => {
-      nbrheures += abs.nbrHeures;
-    });
-    const row = `<tr>
+  if (data.length !== 0) {
+    data.forEach(student => {
+      const filiere = student.filiere.libelle;
+      let nbrheures = 0;
+      student.absences.forEach(abs => {
+        nbrheures += abs.nbrHeures;
+      });
+      const row = `<tr>
         <td><div class='d-flex justify-content-center'><img src='${student.image}' class="avatar"/></div></td>
         <td><span class="d-block text-center">${student.name}<span></td>
         <td><span class="d-block text-center">${student.phone}<span></td>
@@ -35,10 +48,22 @@ const showStudent = data => {
           <div>
         </td>
     </tr>`;
-    html += row;
-  });
+      html += row;
+    });
 
-  studentTable.querySelector("tbody").innerHTML = html;
+    studentTable.querySelector("tbody").innerHTML = html;
+  } else {
+    studentTable.querySelector("tbody").innerHTML =
+      "<tr><td colspan='7'><div class='alert alert-info'><i class='fas fa-exclamation-circle'></i>  nothing is found</div></td></tr>";
+  }
+};
+
+const showFiliers = data => {
+  let html = "";
+  data.forEach(filiere => {
+    html += `<option value="${filiere._id}">${filiere.libelle}</option>`;
+  });
+  drpFiliere.innerHTML += html;
 };
 
 const showPagination = totalPages => {
@@ -70,6 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!Auth.islogin) {
     window.location.href = "./login.html";
   } else {
-    getStudent();
+    getStudent(filiere, name);
+    getFilieres();
   }
+});
+
+frmReherche.addEventListener("click", e => {
+  e.preventDefault();
+  getStudent(drpFiliere.value, txtName.value);
 });
