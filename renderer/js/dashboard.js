@@ -26,43 +26,44 @@ document.addEventListener("DOMContentLoaded", () => {
       new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
       new Date()
     );
-    lineChartTitle.innerText = `${labels[0]} - ${labels[labels.length - 1]}`;
-    console.log(labels.length);
-    new Chart(lineChart, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Big Data",
-            data: [65, 59, 80, 81, 56, 55, 40, 21],
-          },
-          {
-            label: "IAM",
-            data: [18, 32, 44, 87, 81, 13, 21, 77],
-          },
-        ],
-      },
-      options: {
-        aspectRatio: 3,
-      },
-    });
+    getResChart(labels[0], labels[labels.length - 1])
+      .then(res => {
+        lineChartTitle.innerText = `${labels[0]} - ${
+          labels[labels.length - 1]
+        }`;
 
-    new Chart(ctx2, {
-      type: "radar",
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1,
+        new Chart(lineChart, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Big Data",
+                data: res.data.BigData,
+              },
+              {
+                label: "IAM",
+                data: res.data.IAM,
+              },
+            ],
           },
-        ],
-      },
-      options: {
-        aspectRatio: 1.5,
-      },
-    });
+          options: {
+            aspectRatio: 3,
+          },
+        });
+      })
+      .catch(error => {
+        const err =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        console.log(err);
+      });
   }
 });
+
+const getResChart = async (date1, date2) => {
+  return await axios.get(
+    `${env.apirurl}/api/dashboard/filieres/nbrheures?date1=${date1}&date2=${date2}`
+  );
+};

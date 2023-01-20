@@ -31,15 +31,13 @@ const showStudent = data => {
     data.forEach(student => {
       const filiere = student.filiere.libelle;
       let nbrheures = 0;
-      student.absences.forEach(abs => {
-        nbrheures += abs.nbrHeures;
-      });
+
       const row = `<tr>
         <td><div class='d-flex justify-content-center'><img src='${student.image}' class="avatar"/></div></td>
         <td><span class="d-block text-center">${student.name}<span></td>
         <td><span class="d-block text-center">${student.phone}<span></td>
         <td><span class="d-block text-center">${filiere}<span></td>
-        <td><span class="d-block text-center">${nbrheures}<span></td>
+        <td><span class="d-block text-center">${student.nbrheuresabsences}<span></td>
         <td>
           <div class="d-flex justify-content-center">
             <a class="btn btn-light btn-sm" href="student-details.html?id=${student._id}">
