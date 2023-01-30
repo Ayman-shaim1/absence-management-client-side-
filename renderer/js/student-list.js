@@ -1,7 +1,9 @@
 const studentTable = document.getElementById("student-table");
 const paginationList = document.getElementById("pagination");
 const frmReherche = document.getElementById("frm-recherche");
-const drpFiliere = document.getElementById("drp-filiere");
+const drpFiliereList = document.getElementById("drp-filiere-list");
+const drpFiliereAdd = document.getElementById("drp-filiere-add");
+
 const txtName = document.getElementById("txt-name");
 
 let filiere = "";
@@ -31,7 +33,6 @@ const showStudent = data => {
     data.forEach(student => {
       const filiere = student.filiere.libelle;
       let nbrheures = 0;
-
       const row = `<tr>
         <td><div class='d-flex justify-content-center'><img src='${student.image}' class="avatar"/></div></td>
         <td><span class="d-block text-center">${student.name}<span></td>
@@ -61,7 +62,9 @@ const showFiliers = data => {
   data.forEach(filiere => {
     html += `<option value="${filiere._id}">${filiere.libelle}</option>`;
   });
-  drpFiliere.innerHTML += html;
+  drpFiliereList.innerHTML += html;
+  drpFiliereAdd.innerHTML += html;
+
 };
 
 const showPagination = totalPages => {
@@ -100,5 +103,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 frmReherche.addEventListener("click", e => {
   e.preventDefault();
-  getStudent(drpFiliere.value, txtName.value);
+  getStudent(drpFiliereList.value, txtName.value);
 });
