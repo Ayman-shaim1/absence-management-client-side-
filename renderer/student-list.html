@@ -78,7 +78,7 @@
       aria-labelledby="add-student-modalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5">
@@ -109,6 +109,7 @@
                   type="text"
                   placeholder="enter name ..."
                   class="form-control"
+                  id="txt-name-add"
                 />
               </div>
               <div class="form-group">
@@ -117,6 +118,7 @@
                   type="text"
                   placeholder="enter phone number ..."
                   class="form-control"
+                  id="txt-phone"
                 />
               </div>
               <div class="from-group">
@@ -212,7 +214,7 @@
               <small class="d-block text-center"> nombre heure absence </small>
             </th>
 
-            <th><small class="d-block text-center">details</small></th>
+            <th></th>
           </tr>
         </thead>
         <tbody class="placeholder-glow">
@@ -390,6 +392,7 @@
     </div>
 
     <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/index.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>

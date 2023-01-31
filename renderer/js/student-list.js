@@ -2,9 +2,13 @@ const studentTable = document.getElementById("student-table");
 const paginationList = document.getElementById("pagination");
 const frmReherche = document.getElementById("frm-recherche");
 const drpFiliereList = document.getElementById("drp-filiere-list");
-const drpFiliereAdd = document.getElementById("drp-filiere-add");
-
 const txtName = document.getElementById("txt-name");
+
+const frmAddStudent = document.getElementById("frm-add-student");
+const drpFiliereAdd = document.getElementById("drp-filiere-add");
+const txtPhone = document.getElementById("txt-phone");
+const txtNameAdd = document.getElementById("txt-name-add");
+const imagepicker = document.getElementById("image-picker");
 
 let filiere = "";
 let name = "";
@@ -16,7 +20,6 @@ const getStudent = async (filiere, name) => {
   const { data } = await axios.get(
     `${env.apirurl}/api/students?page=${currentPage}&filiere=${filiere}&name=${name}`
   );
-  console.log(data);
   showStudent(data.students);
   showPagination(data.totalPages);
 };
@@ -31,20 +34,25 @@ const showStudent = data => {
   let html = "";
   if (data.length !== 0) {
     data.forEach(student => {
-      const filiere = student.filiere.libelle;
+      const filiere = student.filiere ? student.filiere.libelle : "";
       let nbrheures = 0;
-      const row = `<tr>
+      const row = `<tr id="${student._id}">
         <td><div class='d-flex justify-content-center'><img src='${student.image}' class="avatar"/></div></td>
         <td><span class="d-block text-center">${student.name}<span></td>
         <td><span class="d-block text-center">${student.phone}<span></td>
         <td><span class="d-block text-center">${filiere}<span></td>
         <td><span class="d-block text-center">${student.nbrheuresabsences}<span></td>
         <td>
-          <div class="d-flex justify-content-center">
-            <a class="btn btn-light btn-sm" href="student-details.html?id=${student._id}">
-              <i class="fa-solid fa-calendar-week"></i> details
-            </a>
-          <div>
+           <div class="btn-group">
+              <a class="btn btn-light btn-sm" href="student-details.html?id=${student._id}">
+                <i class="fa-solid fa-calendar-week"></i>
+              </a>
+              <button 
+                class="btn btn-danger btn-sm" 
+                onClick="deleteStudent('${student._id}')">
+                <i class="fas fa-trash"></i>
+            </button>
+           </div>
         </td>
     </tr>`;
       html += row;
@@ -64,7 +72,6 @@ const showFiliers = data => {
   });
   drpFiliereList.innerHTML += html;
   drpFiliereAdd.innerHTML += html;
-
 };
 
 const showPagination = totalPages => {
@@ -101,7 +108,98 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-frmReherche.addEventListener("click", e => {
+frmReherche.addEventListener("submit", e => {
   e.preventDefault();
   getStudent(drpFiliereList.value, txtName.value);
 });
+
+frmAddStudent.addEventListener("submit", async e => {
+  e.preventDefault();
+  try {
+    const objtosend = {
+      phone: txtPhone.value,
+      name: txtNameAdd.value,
+      filiere: drpFiliereAdd.value,
+    };
+
+    const formData = new FormData();
+    formData.append("phone", txtPhone.value);
+    formData.append("name", txtNameAdd.value);
+    formData.append("file", txtPhone.value);
+
+    await axios.post(`${env.apirurl}/api/students/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    txtPhone.value = "";
+    txtNameAdd.value = "";
+    drpFiliereAdd.value = "";
+
+    Swal.fire({
+      title: "Success Message",
+      text: "Student has been added successfully ",
+      icon: "success",
+      confirmButtonText: "OK",
+      confirmButtonColor: "var(--bs-success)",
+    });
+  } catch (error) {
+    const err =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    Swal.fire({
+      title: "Error !",
+      text: err,
+      icon: "error",
+      confirmButtonText: "OK",
+      confirmButtonColor: "var(--bs-danger)",
+    });
+  }
+});
+
+const deleteStudent = async id => {
+  Swal.fire({
+    title: "Confirmation",
+    text: "Do you want delete this student",
+    icon: "question",
+    showDenyButton: true,
+    confirmButtonText: "Yes",
+    confirmButtonColor: "var(--bs-primary)",
+    denyButtonText: `No`,
+    denyButtonColor: "var(--bs-danger)",
+  }).then(async result => {
+    if (result.isConfirmed) {
+      axios
+        .delete(`${env.apirurl}/api/students/${id}`)
+        .then(() => {
+          removeStudentRow(id);
+          Swal.fire({
+            title: "Success Message",
+            text: "Student has been deleted successfully ",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "var(--bs-success)",
+          });
+        })
+        .catch(error => {
+          const err =
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message;
+          Swal.fire({
+            title: "Error !",
+            text: err,
+            icon: "error",
+            confirmButtonText: "OK",
+            confirmButtonColor: "var(--bs-danger)",
+          });
+        });
+    }
+  });
+};
+
+const removeStudentRow = id => {
+  document.getElementById(id).remove();
+};
