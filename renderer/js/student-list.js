@@ -116,16 +116,12 @@ frmReherche.addEventListener("submit", e => {
 frmAddStudent.addEventListener("submit", async e => {
   e.preventDefault();
   try {
-    const objtosend = {
-      phone: txtPhone.value,
-      name: txtNameAdd.value,
-      filiere: drpFiliereAdd.value,
-    };
-
     const formData = new FormData();
     formData.append("phone", txtPhone.value);
     formData.append("name", txtNameAdd.value);
-    formData.append("file", txtPhone.value);
+    formData.append("filiere", drpFiliereAdd.value);
+    const file = imagepicker.files[0];
+    formData.append("file", file);
 
     await axios.post(`${env.apirurl}/api/students/`, formData, {
       headers: {
@@ -136,6 +132,7 @@ frmAddStudent.addEventListener("submit", async e => {
     txtPhone.value = "";
     txtNameAdd.value = "";
     drpFiliereAdd.value = "";
+    imagepicker.value = "";
 
     Swal.fire({
       title: "Success Message",

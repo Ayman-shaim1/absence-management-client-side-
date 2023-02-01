@@ -72,12 +72,75 @@
     <!-- end navbar -->
 
     <div class="container mt-5">
-      <a href="./student-list.html" class="btn btn-sm btn-dark">
-        <i class="fas fa-arrow-left"></i> go back
-      </a>
+      <div class="d-flex justify-content-between">
+        <a href="./student-list.html" class="btn btn-sm btn-dark">
+          <i class="fas fa-arrow-left"></i> go back
+        </a>
+
+        <button class="btn btn-sm btn-danger" id="btn-delete">
+          <i class="fas fa-trash"></i> remove student
+        </button>
+      </div>
+      <hr />
+
+      <!-- Begin Add Absence Modal -->
+      <div
+        class="modal fade"
+        id="add-absence-modal"
+        tabindex="-1"
+        aria-labelledby="add-student-modalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">
+                <i class="fas fa-user-plus"></i>
+                Add student
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="" id="frm-add-absence">
+                <div class="form-group">
+                  <label for="txt-date-absence">date absence :</label>
+                  <input
+                    type="date"
+                    placeholder="enter date ..."
+                    class="form-control"
+                    id="txt-date-absence"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="txt-nbr-hours">Number of hours</label>
+                  <input
+                    type="number"
+                    placeholder="enter number of hours ..."
+                    class="form-control"
+                    id="txt-nbr-hours"
+                  />
+                </div>
+
+                <hr />
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-sm">
+                    add absence <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Add Absence Modal-->
 
       <div class="row -3">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-3">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-4">
           <div class="card">
             <div class="card-header d-flex justify-content-center">
               <h6>student info</h6>
@@ -115,11 +178,37 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
-          <div class="d-flex justify-content-center">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 my-4">
+          <div class="d-flex justify-content-between mb-3 align-items-center">
+            <h6>absences : <span id="lbl-nbrAbsence">10</span></h6>
+            <button
+              class="btn btn-sm btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#add-absence-modal"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <div class="overflow-auto" style="max-height: 330px">
+            <table class="table table-sm" id="absence-table">
+              <thead>
+                <tr>
+                  <td>Date absence</td>
+                  <td>Number of hours</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="d-flex justify-content-center mt-4">
             <h5>Send to him an sms</h5>
           </div>
-          <form action="" id="frm-send-sms">
+          <form id="frm-send-sms">
             <div class="form-group">
               <label for="txt-phone">Phone</label>
               <input

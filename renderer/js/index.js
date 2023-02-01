@@ -7,7 +7,7 @@ const env = {
 document.addEventListener("DOMContentLoaded", () => {
   console.log(navbarUsernameLink);
   if (Auth.islogin) {
-    navbarUsernameLink.innerText = "hello " + Auth.user.name + " !";
+    navbarUsernameLink.innerText = Auth.user.name;
   }
 });
 
